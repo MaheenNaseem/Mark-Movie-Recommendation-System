@@ -32,9 +32,6 @@ export default function MovieDetail() {
   const dispatch = useDispatch();
   const watchlist = useSelector((state) => state.watchlist.movies);
 
-  // checks if the movie is already in the watchlist
-  const isAlreadyAdded = watchlist.some((m) => m.id === movie?.id);
-
   useEffect(() => {
     if (!API_KEY || !id) return;
 
@@ -88,6 +85,9 @@ export default function MovieDetail() {
       </View>
     );
   }
+
+  // checks if the movie is already in the watchlist
+  const isAlreadyAdded = watchlist.some((m) => m.id === movie?.id);
 
   return (
     <ScrollView

@@ -11,13 +11,15 @@ import {
 import { useDispatch, useSelector } from "react-redux";
 import { getTheme } from "../../constants/colors";
 import { useReviewMutation } from "../../hooks/useReviewMutation";
-import { addReview, deleteReview } from "../../store/slices/reviewslice";
+import {
+  addReview,
+  deleteReview,
+  updateReview,
+} from "../../store/slices/reviewslice";
 
 export default function ReviewScreen() {
   const router = useRouter();
   const { id } = useLocalSearchParams();
-  const [loading, setLoading] = useState(true);
-
   const dispatch = useDispatch();
 
   // for setting the theme according colors for the app
@@ -30,11 +32,35 @@ export default function ReviewScreen() {
 
   const [text, setText] = useState("");
   const [rating, setRating] = useState("");
+  const [editingId, setEditingId] = useState(null);
 
   const mutation = useReviewMutation();
 
+  // populates the fields and save the review which is being updated
+  const handleEditReview = (review) => {
+    setText(review.text);
+    setRating(review.rating.toString());
+    setEditingId(review.id);
+  };
+
   const handleAddReview = () => {
+    // if empty
     if (!text || !rating) return;
+
+    // if there is an editing id then saves the changed in updated
+    if (editingId) {
+      const updated = {
+        id: editingId,
+        movieId: Number(id),
+        text,
+        rating,
+      };
+      dispatch(updateReview(updated));
+      setText("");
+      setRating("");
+      setEditingId(null);
+      return;
+    }
 
     const review = {
       id: Date.now(),
@@ -58,7 +84,7 @@ export default function ReviewScreen() {
         onPress={() => router.back()}
         style={[styles.backBtn, { backgroundColor: colors.secondary }]}
       >
-        <Text style={[styles.backBtnText, { color: colors.highlight }]}>
+        <Text style={[styles.backBtnText, { color: colors.white }]}>
           ← Back
         </Text>
       </TouchableOpacity>
@@ -92,8 +118,13 @@ export default function ReviewScreen() {
         style={[styles.button, { backgroundColor: colors.primary }]}
         onPress={handleAddReview}
       >
+        {/* checks if teh editing id is true then shows save edit text else the others*/}
         <Text style={styles.buttonText}>
-          {mutation.isPending ? "Adding..." : "Add Review"}
+          {editingId
+            ? "Save Edit"
+            : mutation.isPending
+              ? "Adding..."
+              : "Add Review"}
         </Text>
       </TouchableOpacity>
 
@@ -110,9 +141,17 @@ export default function ReviewScreen() {
               {item.text}
             </Text>
 
-            <TouchableOpacity onPress={() => dispatch(deleteReview(item.id))}>
-              <Text style={styles.delete}>Delete</Text>
-            </TouchableOpacity>
+            <View style={{ flex: 1, flexDirection: "row" }}>
+              <TouchableOpacity onPress={() => handleEditReview(item)}>
+                <Text style={[styles.update, { color: colors.update }]}>
+                  Update
+                </Text>
+              </TouchableOpacity>
+
+              <TouchableOpacity onPress={() => dispatch(deleteReview(item.id))}>
+                <Text style={styles.delete}>Delete</Text>
+              </TouchableOpacity>
+            </View>
           </View>
         )}
       />
@@ -165,6 +204,11 @@ const styles = StyleSheet.create({
   delete: {
     color: "red",
     marginTop: 5,
+    paddingRight: 20,
+  },
+  update: {
+    marginTop: 5,
+    paddingRight: 20,
   },
   backBtn: {
     position: "absolute",
