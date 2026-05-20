@@ -39,6 +39,10 @@ export default function DashboardScreen() {
       <View
         style={[styles.emptyContainer, { backgroundColor: colors.background }]}
       >
+        <Text style={[styles.heading, { color: colors.highlight }]}>
+          Dashboard Not Available
+        </Text>
+
         <Text style={{ fontSize: 60 }}></Text>
         <Text style={[styles.emptyTitle, { color: colors.highlight }]}>
           No stats yet!
@@ -95,6 +99,7 @@ const styles = StyleSheet.create({
   },
 
   heading: {
+    textAlign: "center",
     fontSize: 28,
     fontWeight: "bold",
     marginBottom: 20,
@@ -110,7 +115,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
-    padding: 30,
+    padding: 50,
   },
 
   emptyTitle: {
