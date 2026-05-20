@@ -8,7 +8,6 @@ const darkTheme = {
   card: "#324376",
   border: "#1a2a4a",
   header: "#1a2a4a",
-  statusBar: "light",
 };
 
 const lightTheme = {
@@ -21,7 +20,6 @@ const lightTheme = {
   card: "#d0cece",
   border: "#E0E0E0",
   header: "#FFFFFF",
-  statusBar: "dark",
 };
 
 export const getTheme = (isDark) => {

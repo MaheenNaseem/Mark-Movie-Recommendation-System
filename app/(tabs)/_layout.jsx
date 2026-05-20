@@ -1,13 +1,21 @@
 import FontAwesome from "@expo/vector-icons/FontAwesome";
 import { Tabs } from "expo-router";
+import { useSelector } from "react-redux";
+import { getTheme } from "../../constants/colors";
 
 export default function TabsLayout() {
+  const isDark = useSelector((state) => state.theme.isDark);
+  const colors = getTheme(isDark);
   return (
     <Tabs
       screenOptions={{
         headerShown: false,
-        tabBarActiveTintColor: "#AF47D2",
-        tabBarInactiveTintColor: "#26355D",
+        tabBarActiveTintColor: colors.primary,
+        tabBarInactiveTintColor: colors.textLight,
+        tabBarStyle: {
+          backgroundColor: colors.card,
+          borderTopColor: colors.border,
+        },
       }}
     >
       <Tabs.Screen
