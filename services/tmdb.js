@@ -1,6 +1,7 @@
 import axios from "axios";
-
-const API_KEY = process.env.EXPO_PUBLIC_TMDB_API_KEY;
+import Constants from "expo-constants";
+const API_KEY = Constants.expoConfig.extra.tmdbApiKey;
+//const API_KEY = process.env.EXPO_PUBLIC_TMDB_API_KEY;
 
 export const fetchPopularMovies = async () => {
   try {

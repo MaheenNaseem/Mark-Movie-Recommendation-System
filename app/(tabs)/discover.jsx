@@ -1,3 +1,4 @@
+import Constants from "expo-constants";
 import { useState } from "react";
 import {
   ActivityIndicator,
@@ -12,7 +13,7 @@ import { useSelector } from "react-redux";
 import MovieCard from "../../components/MovieCard";
 import { getTheme } from "../../constants/colors";
 
-const API_KEY = process.env.EXPO_PUBLIC_TMDB_API_KEY;
+const API_KEY = Constants.expoConfig.extra.tmdbApiKey;
 
 export default function DiscoverScreen() {
   // gets the current theme enabled

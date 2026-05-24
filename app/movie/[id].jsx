@@ -1,4 +1,5 @@
 import axios from "axios";
+import Constants from "expo-constants";
 import { useLocalSearchParams, useRouter } from "expo-router";
 import { useEffect, useState } from "react";
 import {
@@ -14,7 +15,9 @@ import { useDispatch, useSelector } from "react-redux";
 import { getTheme } from "../../constants/colors";
 import { addMovie } from "../../store/slices/watchlistslice";
 
-const API_KEY = process.env.EXPO_PUBLIC_TMDB_API_KEY;
+const API_KEY = Constants.expoConfig.extra.tmdbApiKey;
+//const API_KEY = process.env.EXPO_PUBLIC_TMDB_API_KEY;
+
 const BASE_URL = "https://api.themoviedb.org/3";
 
 export default function MovieDetail() {
