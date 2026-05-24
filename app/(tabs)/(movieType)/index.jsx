@@ -3,14 +3,15 @@ import {
   FlatList,
   StyleSheet,
   Text,
-  TouchableOpacity,
   View,
 } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
-import MovieCard from "../../components/MovieCard";
-import { getTheme } from "../../constants/colors";
-import { useMovies } from "../../hooks/useMovies";
-import { toggleTheme } from "../../store/slices/themeslice";
+//import MovieCard from "../../components/MovieCard";
+import MovieCard from "@/components/MovieCard";
+//import { getTheme } from "../../constants/colors";
+import { getTheme } from "@/constants/colors";
+//import { useMovies } from "../../hooks/useMovies";
+import { useMovies } from "../../../hooks/useMovies";
 
 export default function HomeScreen() {
   const { data, isLoading, error } = useMovies();
@@ -36,13 +37,6 @@ export default function HomeScreen() {
 
   return (
     <View style={[styles.container, { backgroundColor: colors.background }]}>
-      <Text style={[styles.heading, { color: colors.highlight }]}>
-        Popular Movies
-        <TouchableOpacity onPress={() => dispatch(toggleTheme())}>
-          <Text>{isDark ? "☀️" : "🌙"}</Text>
-        </TouchableOpacity>
-      </Text>
-
       <FlatList
         data={data}
         keyExtractor={(item) => item.id.toString()}

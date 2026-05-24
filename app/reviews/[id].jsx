@@ -170,6 +170,7 @@ const styles = StyleSheet.create({
     fontSize: 28,
     fontWeight: "bold",
     marginBottom: 15,
+    marginTop: 50,
   },
 
   input: {
@@ -216,6 +217,7 @@ const styles = StyleSheet.create({
     left: 10,
     borderRadius: 10,
     padding: 10,
+    marginTop: 50,
   },
   backBtnText: {
     fontWeight: "Bold",
